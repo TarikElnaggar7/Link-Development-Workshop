@@ -1,0 +1,29 @@
+<header class="app-header">
+  <div class="container">
+    <div class="logo">
+      <a
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <img src="/logo.png" alt="Link Logo" height="40" />
+      </a>
+    </div>
+    <div class="navigation-action">
+      <nav class="main-nav">
+        <ul>
+          <li>
+            <a class="cart-icon" routerLink="/cart" routerLinkActive="active">
+              <img src="/cart_icon.png" alt="Link Logo" height="20" />
+              <div class="cart-icon-count">{{ cartItemCount() }}</div>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div class="user-actions">
+        <button class="btn btn-outline">Log In</button>
+        <button class="btn btn-primary">Sign Up</button>
+      </div>
+    </div>
+  </div>
+</header>

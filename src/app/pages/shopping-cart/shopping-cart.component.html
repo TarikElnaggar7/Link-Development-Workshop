@@ -1,0 +1,76 @@
+<div class="shopping-cart-container">
+  <div class="container">
+    <div class="breadcrumb">
+      <a routerLink="/">Home</a> &gt; <span>Shopping Cart</span>
+    </div>
+  </div>
+  <h1>Shopping Cart</h1>
+  <div class="content-container">
+    <div class="cart-items" *ngIf="cartItems().length > 0; else emptyCart">
+      <div class="cart-item" *ngFor="let item of cartItems()">
+        <img
+          [src]="item.course.image"
+          [alt]="item.course.title"
+          class="cart-item-image"
+        />
+        <div class="item-details">
+          <h3>
+            <a [routerLink]="['/course', item.course.id]">{{
+              item.course.title
+            }}</a>
+          </h3>
+          <p>By {{ item.course.author }}</p>
+        </div>
+        <div class="custom-input-field">
+          <input
+            type="number"
+            [id]="'quantity-' + item.course.id"
+            [value]="item.quantity"
+            min="1"
+            (change)="
+              updateQuantity(item.course.id, $any($event.target).valueAsNumber)
+            "
+            required
+          />
+          <label [for]="'quantity-' + item.course.id">Quantity</label>
+          <div class="item-actions">
+            <button class="btn-remove" (click)="removeItem(item.course.id)">
+              Remove
+            </button>
+          </div>
+        </div>
+
+        <div class="item-total">
+          ${{
+            (item.course.discount
+              ? item.course.price * (1 - item.course.discount / 100)
+              : item.course.price) * item.quantity | number : ".2-2"
+          }}
+        </div>
+      </div>
+    </div>
+
+    <div class="cart-summary">
+      <div class="summary-details">
+        <p>Subtotal: ${{ cartTotal() | number : ".2-2" }}</p>
+        <p>Tax (estimated): ${{ cartTotal() * 0.1 | number : ".2-2" }}</p>
+        <h3>Total: ${{ cartTotal() * 1.1 | number : ".2-2" }}</h3>
+      </div>
+      <div class="summary-actions">
+        <button class="btn btn-outline" (click)="clearCart()">
+          Clear Cart
+        </button>
+        <button class="btn btn-primary" routerLink="/checkout">
+          Proceed to Checkout
+        </button>
+      </div>
+    </div>
+
+    <ng-template #emptyCart>
+      <div class="empty-cart-message">
+        <p>Your shopping cart is empty.</p>
+        <a routerLink="/" class="btn btn-primary">Continue Shopping</a>
+      </div>
+    </ng-template>
+  </div>
+</div>

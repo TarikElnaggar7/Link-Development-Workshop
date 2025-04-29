@@ -1,0 +1,31 @@
+<div class="wrapper">
+  <div class="hero-container">
+    <div class="left-section">
+      <div class="copy">
+        <h1>
+          <span class="hero-blue">Check </span>
+          <span>our latest</span>
+          <br />
+          <span>Media Gallery</span>
+        </h1>
+        <div>Every picture holds a moment, every moment holds a story</div>
+        <button type="button">View all photos</button>
+      </div>
+    </div>
+    <div class="right-section">
+      <div class="hero-images">
+        <img [src]="images()[activeImageIndex()]" />
+      </div>
+      <div class="slider-controls">
+        <div class="buttons">
+          <button class="slider-button" (click)="slide()">&lt;</button>
+          <button class="slider-button" (click)="slide()">&gt;</button>
+        </div>
+        <div class="break-hr-line"></div>
+        <div class="counter">
+          {{ activeImageIndex() + 1 }} / {{ totalImages() }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

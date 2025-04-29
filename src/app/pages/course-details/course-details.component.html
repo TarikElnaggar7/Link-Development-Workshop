@@ -1,0 +1,65 @@
+<div class="course-details-container" *ngIf="courseData; else loading">
+  <div class="container">
+    <div class="breadcrumb">
+      <a routerLink="/">Home</a> &gt; <span>{{ courseData.title }}</span>
+    </div>
+    <div class="content-container">
+      <div class="course-header">
+        <h1>{{ courseData.title }}</h1>
+        <p class="course-description">{{ courseData.description }}</p>
+        <div class="course-meta">
+          <div class="rating">
+            <span>★★★★★</span>
+          </div>
+          <strong> | </strong>
+          <div class="author">
+            <strong>{{ courseData.hours }}</strong> Total Hours
+          </div>
+          <div class="author">
+            <strong>{{ courseData.lectures }}</strong> Lectures
+          </div>
+          <div class="level">
+            <span>{{ courseData.level }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="course-content">
+        <div class="course-info">
+          <div class="price-box">
+            <div class="course-image">
+              <img [src]="courseData.image" [alt]="courseData.title" />
+            </div>
+            <div class="price">
+              <span *ngIf="courseData.discount" class="discounted-price"
+                >${{
+                  courseData.price * (1 - courseData.discount / 100)
+                    | number : "1.2-2"
+                }}</span
+              >
+              <span [class.original-price]="courseData.discount"
+                >${{ courseData.price }}</span
+              >
+            </div>
+
+            <div class="actions">
+              <button
+                class="btn btn-primary btn-add-to-cart"
+                (click)="addToCart(courseData)"
+              >
+                Add to Cart
+              </button>
+              <button class="btn btn-outline btn-buy-now">Buy Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="loading-container">
+    <p>Loading course details...</p>
+  </div>
+</ng-template>

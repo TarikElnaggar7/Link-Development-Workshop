@@ -1,0 +1,195 @@
+<div class="checkout-container">
+  <div class="container">
+    <h1>Checkout</h1>
+
+    <div class="checkout-content">
+      <div class="checkout-form">
+        <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+          <div class="form-section">
+            <div class="form-group">
+              <label for="country">Country *</label>
+              <select
+                id="country"
+                formControlName="country"
+                class="form-control"
+              >
+                <option value="">Select Country</option>
+                <option *ngFor="let country of countries" [value]="country">
+                  {{ country }}
+                </option>
+              </select>
+              <div
+                class="error-message"
+                *ngIf="
+                  checkoutForm.get('country')?.invalid &&
+                  checkoutForm.get('country')?.touched
+                "
+              >
+                Country is required
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="state">State/Union Territory *</label>
+              <select
+                id="state"
+                formControlName="state"
+                class="form-control"
+                [disabled]="!currentStates.length"
+              >
+                <option value="">Select State</option>
+                <option *ngFor="let state of currentStates" [value]="state">
+                  {{ state }}
+                </option>
+              </select>
+              <div
+                class="error-message"
+                *ngIf="
+                  checkoutForm.get('state')?.invalid &&
+                  checkoutForm.get('state')?.touched
+                "
+              >
+                State is required
+              </div>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h3>Payment Method</h3>
+
+            <div class="form-group">
+              <div class="payment-method">
+                <input
+                  type="radio"
+                  id="creditCard"
+                  formControlName="paymentMethod"
+                  value="creditCard"
+                  checked
+                />
+                <label for="creditCard">Credit/Debit Card</label>
+              </div>
+            </div>
+
+            <div class="card-details">
+              <div class="form-group">
+                <label for="cardName">Name on Card *</label>
+                <input
+                  type="text"
+                  id="cardName"
+                  formControlName="cardName"
+                  class="form-control"
+                  placeholder="Enter name on card"
+                />
+                <div
+                  class="error-message"
+                  *ngIf="
+                    checkoutForm.get('cardName')?.invalid &&
+                    checkoutForm.get('cardName')?.touched
+                  "
+                >
+                  Name on card is required
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="cardNumber">Card Number *</label>
+                <input
+                  type="text"
+                  id="cardNumber"
+                  formControlName="cardNumber"
+                  class="form-control"
+                  placeholder="Enter card number"
+                />
+                <div
+                  class="error-message"
+                  *ngIf="
+                    checkoutForm.get('cardNumber')?.invalid &&
+                    checkoutForm.get('cardNumber')?.touched
+                  "
+                >
+                  Please enter a valid 16-digit card number
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="expiryDate">Expiry Date *</label>
+                  <input
+                    type="text"
+                    id="expiryDate"
+                    formControlName="expiryDate"
+                    class="form-control"
+                    placeholder="MM/YY"
+                  />
+                  <div
+                    class="error-message"
+                    *ngIf="
+                      checkoutForm.get('expiryDate')?.invalid &&
+                      checkoutForm.get('expiryDate')?.touched
+                    "
+                  >
+                    Please enter a valid expiry date (MM/YY)
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="cvc">CVC/CVV *</label>
+                  <input
+                    type="text"
+                    id="cvc"
+                    formControlName="cvc"
+                    class="form-control"
+                    placeholder="Enter CVC/CVV"
+                  />
+                  <div
+                    class="error-message"
+                    *ngIf="
+                      checkoutForm.get('cvc')?.invalid &&
+                      checkoutForm.get('cvc')?.touched
+                    "
+                  >
+                    Please enter a valid CVC/CVV
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn-outline" type="submit">
+              Back to Cart
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="checkoutForm.invalid"
+            >
+              Complete Order
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="order-summary">
+        <h3>Order Details</h3>
+        <div class="summary-item">
+          <span>Price</span>
+          <span>${{ subtotal() | number : ".2-2" }}</span>
+        </div>
+        <div class="summary-item">
+          <span>Discount</span>
+          <span>-$10.00</span>
+          <!-- Example discount -->
+        </div>
+        <div class="summary-item">
+          <span>Tax</span>
+          <span>${{ tax() | number : ".2-2" }}</span>
+        </div>
+        <div class="summary-total">
+          <span>Total</span>
+          <span>${{ total() | number : ".2-2" }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
