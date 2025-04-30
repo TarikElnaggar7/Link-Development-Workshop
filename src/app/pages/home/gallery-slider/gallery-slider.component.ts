@@ -1,15 +1,21 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, signal } from "@angular/core";
 
 @Component({
   standalone: true,
-  selector: 'app-gallery-slider',
-  templateUrl: './gallery-slider.component.html',
-  styleUrl: './gallery-slider.component.scss',
+  selector: "app-gallery-slider",
+  templateUrl: "./gallery-slider.component.html",
+  styleUrl: "./gallery-slider.component.scss",
 })
 export class GallerySliderComponent {
-  readonly images = signal(['Frame1.png', 'Frame2.png', 'Frame3.png']);
+  readonly images = signal(["Frame1.png", "Frame2.png", "Frame3.png"]);
   readonly activeImageIndex = signal(0);
   readonly totalImages = computed(() => this.images().length);
+
+  ngOnInit(): void {
+    setInterval(() => {
+      this.slide();
+    }, 1700);
+  }
 
   slide(): void {
     if (this.activeImageIndex() === this.images().length - 1) {
