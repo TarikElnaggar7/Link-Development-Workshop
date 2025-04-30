@@ -7,7 +7,11 @@ import { Component, computed, signal } from "@angular/core";
   styleUrl: "./gallery-slider.component.scss",
 })
 export class GallerySliderComponent {
-  readonly images = signal(["Frame1.png", "Frame2.png", "Frame3.png"]);
+  readonly images = signal([
+    "assets/Frame1.png",
+    "assets/Frame2.png",
+    "assets/Frame3.png",
+  ]);
   readonly activeImageIndex = signal(0);
   readonly totalImages = computed(() => this.images().length);
 
